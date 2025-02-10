@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      terminationGracePeriodSeconds: 0
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                - matchExpressions:
+                    - key: eks_x86
+                      operator: Exists
+              topologyKey: eks.amazonaws.com/nodegroup
+      containers:
+        - name: nginx
+          image: nginx
+          resources:
+            requests:
+              cpu: 1
