@@ -21,8 +21,7 @@ The infrastructure includes:
 
 1. Clone this repository:
 ```bash
-git clone <repository-url>
-cd eks-karpenter
+git clone https://github.com/smarty24/eks-karpenter.git
 ```
 
 2. Create a `terraform.tfvars` file:
@@ -125,7 +124,7 @@ aws ec2 describe-subnets --filters "Name=vpc-id,Values=<vpc-id>"
 
 To destroy the infrastructure:
 ```bash
-terraform destroy
+terraform destroy -var-file=environment/dev-config.tfvars
 ```
 
 Note: Ensure all workloads are removed before destroying the infrastructure to avoid any issues with node termination.
